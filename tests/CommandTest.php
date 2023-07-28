@@ -1,7 +1,7 @@
 <?php
 
-use Symfony\Component\Console\Command\Command as CommandAlias;
 use function Pest\Laravel\artisan;
+use Symfony\Component\Console\Command\Command as CommandAlias;
 
 it('command config', function () {
     artisan(\Terpise\Solid\Commands\SolidCommand::class)
@@ -15,4 +15,3 @@ it('command set config', function () {
         ->expectsOutput(config('solid.command'))
         ->assertExitCode(CommandAlias::SUCCESS);
 });
-

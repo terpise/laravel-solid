@@ -13,7 +13,6 @@ use Terpise\Solid\Contracts\RepositoryInterface;
 
 /**
  * Class BaseRepository
- *
  */
 abstract class Repository implements RepositoryInterface
 {
@@ -50,7 +49,6 @@ abstract class Repository implements RepositoryInterface
     protected $scopeQuery = null;
 
     /**
-     * @param Application $app
      * @throws Exception
      */
     public function __construct(Application $app)
@@ -61,7 +59,6 @@ abstract class Repository implements RepositoryInterface
 
     /**
      * Returns the current Model instance
-     *
      */
     public function getModel()
     {
@@ -82,6 +79,7 @@ abstract class Repository implements RepositoryInterface
 
     /**
      * @return Model
+     *
      * @throws Exception
      * @throws BindingResolutionException
      */
@@ -89,6 +87,7 @@ abstract class Repository implements RepositoryInterface
     {
         $model = $this->app->make($this->model());
         $this->originalModel = $model;
+
         return $this->model = $model;
     }
 
@@ -115,22 +114,21 @@ abstract class Repository implements RepositoryInterface
     /**
      * Query Scope
      *
-     * @param Closure $scope
      *
      * @return $this
      */
     public function scopeQuery(Closure $scope)
     {
         $this->scopeQuery = $scope;
+
         return $this;
     }
 
     /**
      * Retrieve data array for populate field select
      *
-     * @param string $column
-     * @param string|null $key
-     *
+     * @param  string  $column
+     * @param  string|null  $key
      * @return Collection|array
      */
     public function lists($column, $key = null)
@@ -142,9 +140,8 @@ abstract class Repository implements RepositoryInterface
      * Retrieve data array for populate field select
      * Compatible with Laravel 5.3
      *
-     * @param string $column
-     * @param string|null $key
-     *
+     * @param  string  $column
+     * @param  string|null  $key
      * @return Collection|array
      */
     public function pluck($column, $key = null)
@@ -155,11 +152,7 @@ abstract class Repository implements RepositoryInterface
     /**
      * Sync relations
      *
-     * @param      $id
-     * @param      $relation
-     * @param      $attributes
-     * @param bool $detaching
-     *
+     * @param  bool  $detaching
      * @return mixed
      */
     public function sync($id, $relation, $attributes, $detaching = true)
@@ -170,9 +163,6 @@ abstract class Repository implements RepositoryInterface
     /**
      * SyncWithoutDetaching
      *
-     * @param $id
-     * @param $relation
-     * @param $attributes
      *
      * @return mixed
      */
@@ -184,8 +174,7 @@ abstract class Repository implements RepositoryInterface
     /**
      * Retrieve all data of repository
      *
-     * @param array $columns
-     *
+     * @param  array  $columns
      * @return mixed
      */
     public function all($columns = ['*'])
@@ -200,14 +189,14 @@ abstract class Repository implements RepositoryInterface
 
         $this->resetModel();
         $this->resetScope();
+
         return $results;
     }
 
     /**
      * Count results of repository
      *
-     * @param string $columns
-     *
+     * @param  string  $columns
      * @return int
      */
     public function count($columns = '*')
@@ -216,14 +205,14 @@ abstract class Repository implements RepositoryInterface
         $result = $this->model->count($columns);
         $this->resetModel();
         $this->resetScope();
+
         return $result;
     }
 
     /**
      * Alias of All method
      *
-     * @param array $columns
-     *
+     * @param  array  $columns
      * @return mixed
      */
     public function get($columns = ['*'])
@@ -234,8 +223,7 @@ abstract class Repository implements RepositoryInterface
     /**
      * Retrieve first data of repository
      *
-     * @param array $columns
-     *
+     * @param  array  $columns
      * @return mixed
      */
     public function first($columns = ['*'])
@@ -243,13 +231,13 @@ abstract class Repository implements RepositoryInterface
         $this->applyScope();
         $results = $this->model->first($columns);
         $this->resetModel();
+
         return $results;
     }
 
     /**
      * Retrieve first data of repository, or return new Entity
      *
-     * @param array $attributes
      *
      * @return mixed
      */
@@ -258,13 +246,13 @@ abstract class Repository implements RepositoryInterface
         $this->applyScope();
         $model = $this->model->firstOrNew($attributes);
         $this->resetModel();
+
         return $model;
     }
 
     /**
      * Retrieve first data of repository, or create new Entity
      *
-     * @param array $attributes
      *
      * @return mixed
      */
@@ -280,9 +268,8 @@ abstract class Repository implements RepositoryInterface
     /**
      * Retrieve data of repository with limit applied
      *
-     * @param int $limit
-     * @param array $columns
-     *
+     * @param  int  $limit
+     * @param  array  $columns
      * @return mixed
      */
     public function limit($limit, $columns = ['*'])
@@ -296,13 +283,12 @@ abstract class Repository implements RepositoryInterface
     /**
      * Retrieve all data of repository, paginated
      *
-     * @param null|int $limit
-     * @param array $columns
-     * @param string $method
-     *
+     * @param  null|int  $limit
+     * @param  array  $columns
+     * @param  string  $method
      * @return mixed
      */
-    public function paginate($limit = null, $columns = ['*'], $method = "paginate")
+    public function paginate($limit = null, $columns = ['*'], $method = 'paginate')
     {
 
         $this->applyScope();
@@ -317,22 +303,19 @@ abstract class Repository implements RepositoryInterface
     /**
      * Retrieve all data of repository, simple paginated
      *
-     * @param null|int $limit
-     * @param array $columns
-     *
+     * @param  null|int  $limit
+     * @param  array  $columns
      * @return mixed
      */
     public function simplePaginate($limit = null, $columns = ['*'])
     {
-        return $this->paginate($limit, $columns, "simplePaginate");
+        return $this->paginate($limit, $columns, 'simplePaginate');
     }
 
     /**
      * Find data by id
      *
-     * @param       $id
-     * @param array $columns
-     *
+     * @param  array  $columns
      * @return mixed
      */
     public function find($id, $columns = ['*'])
@@ -347,10 +330,7 @@ abstract class Repository implements RepositoryInterface
     /**
      * Find data by field and value
      *
-     * @param       $field
-     * @param       $value
-     * @param array $columns
-     *
+     * @param  array  $columns
      * @return mixed
      */
     public function findByField($field, $value = null, $columns = ['*'])
@@ -365,10 +345,7 @@ abstract class Repository implements RepositoryInterface
     /**
      * Find data by multiple values in one field
      *
-     * @param       $field
-     * @param array $values
-     * @param array $columns
-     *
+     * @param  array  $columns
      * @return mixed
      */
     public function findWhereIn($field, array $values, $columns = ['*'])
@@ -383,10 +360,7 @@ abstract class Repository implements RepositoryInterface
     /**
      * Find data by excluding multiple values in one field
      *
-     * @param       $field
-     * @param array $values
-     * @param array $columns
-     *
+     * @param  array  $columns
      * @return mixed
      */
     public function findWhereNotIn($field, array $values, $columns = ['*'])
@@ -401,10 +375,7 @@ abstract class Repository implements RepositoryInterface
     /**
      * Find data by between values in one field
      *
-     * @param       $field
-     * @param array $values
-     * @param array $columns
-     *
+     * @param  array  $columns
      * @return mixed
      */
     public function findWhereBetween($field, array $values, $columns = ['*'])
@@ -419,7 +390,6 @@ abstract class Repository implements RepositoryInterface
     /**
      * Save a new entity in repository
      *
-     * @param array $attributes
      * @return Model
      */
     public function create(array $attributes)
@@ -427,14 +397,13 @@ abstract class Repository implements RepositoryInterface
         $model = $this->model->newInstance($attributes);
         $model->save();
         $this->resetModel();
+
         return $model;
     }
 
     /**
      * Update a entity in repository by id
      *
-     * @param array $attributes
-     * @param       $id
      *
      * @return mixed
      */
@@ -447,14 +416,13 @@ abstract class Repository implements RepositoryInterface
         $model->save();
 
         $this->resetModel();
+
         return $model;
     }
 
     /**
      * Update or Create an entity in repository
      *
-     * @param array $attributes
-     * @param array $values
      *
      * @return mixed
      */
@@ -463,13 +431,13 @@ abstract class Repository implements RepositoryInterface
         $this->applyScope();
         $model = $this->model->updateOrCreate($attributes, $values);
         $this->resetModel();
+
         return $model;
     }
 
     /**
      * Delete a entity in repository by id
      *
-     * @param $id
      *
      * @return int
      */
@@ -478,113 +446,114 @@ abstract class Repository implements RepositoryInterface
         $this->applyScope();
         $model = $this->find($id);
         $this->resetModel();
+
         return $model->delete();
     }
 
     /**
      * Check if entity has relation
      *
-     * @param string $relation
-     *
+     * @param  string  $relation
      * @return $this
      */
     public function has($relation)
     {
         $this->model = $this->model->has($relation);
+
         return $this;
     }
 
     /**
      * Load relations
      *
-     * @param array|string $relations
-     *
+     * @param  array|string  $relations
      * @return $this
      */
     public function with($relations)
     {
         $this->model = $this->model->with($relations);
+
         return $this;
     }
 
     /**
      * Add subselect queries to count the relations.
      *
-     * @param mixed $relations
-     *
+     * @param  mixed  $relations
      * @return $this
      */
     public function withCount($relations)
     {
         $this->model = $this->model->withCount($relations);
+
         return $this;
     }
 
     /**
      * Load relation with closure
      *
-     * @param string $relation
-     * @param closure $closure
-     *
+     * @param  string  $relation
+     * @param  closure  $closure
      * @return $this
      */
     public function whereHas($relation, $closure)
     {
         $this->model = $this->model->whereHas($relation, $closure);
+
         return $this;
     }
 
     /**
      * Set hidden fields
      *
-     * @param array $fields
      *
      * @return $this
      */
     public function hidden(array $fields)
     {
         $this->model->setHidden($fields);
+
         return $this;
     }
 
     /**
      * Set the "orderBy" value of the query.
      *
-     * @param mixed $column
-     * @param string $direction
-     *
+     * @param  mixed  $column
+     * @param  string  $direction
      * @return $this
      */
     public function orderBy($column, $direction = 'asc')
     {
         $this->model = $this->model->orderBy($column, $direction);
+
         return $this;
     }
 
     /**
      * Set the "limit" value of the query.
      *
-     * @param int $limit
-     *
+     * @param  int  $limit
      * @return $this
      */
     public function take($limit)
     {
         // Internally `take` is an alias to `limit`
         $this->model = $this->model->limit($limit);
+
         return $this;
     }
 
     /**
      * Set visible fields
      *
-     * @param array $fields
      *
      * @return $this
      */
     public function visible(array $fields)
     {
         $this->model->setVisible($fields);
+
         return $this;
     }
 
@@ -596,6 +565,7 @@ abstract class Repository implements RepositoryInterface
     public function resetScope()
     {
         $this->scopeQuery = null;
+
         return $this;
     }
 
@@ -610,14 +580,13 @@ abstract class Repository implements RepositoryInterface
             $callback = $this->scopeQuery;
             $this->model = $callback($this->model);
         }
+
         return $this;
     }
 
     /**
      * Trigger static method calls to the model
      *
-     * @param $method
-     * @param $arguments
      *
      * @return mixed
      */
@@ -629,9 +598,8 @@ abstract class Repository implements RepositoryInterface
     /**
      * Trigger method calls to the model
      *
-     * @param string $method
-     * @param array $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return mixed
      */
     public function __call($method, $arguments)

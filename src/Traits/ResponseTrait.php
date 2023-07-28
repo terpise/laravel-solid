@@ -14,8 +14,8 @@ trait ResponseTrait
         return response()->json(array_merge_recursive([
             'meta' => [
                 'code' => $code,
-                'message' => $message != "" ? $message : $this->getMessage($code)
-            ]
+                'message' => $message != '' ? $message : $this->getMessage($code),
+            ],
         ], $this->formatData($data)))->setStatusCode($code);
     }
 
@@ -46,6 +46,7 @@ trait ResponseTrait
             default:
                 $message = '';
         }
+
         return $message;
     }
 

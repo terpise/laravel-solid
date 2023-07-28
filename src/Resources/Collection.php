@@ -18,8 +18,7 @@ abstract class Collection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request|null $request
-     * @return array
+     * @param  Request|null  $request
      */
     public function toArray($request = null): array
     {
@@ -31,8 +30,6 @@ abstract class Collection extends ResourceCollection
 
     /**
      * Get an array of meta data to include in the resource collection response.
-     *
-     * @return array
      */
     protected function getMeta(): array
     {
@@ -44,6 +41,7 @@ abstract class Collection extends ResourceCollection
                 'current_page' => $this->currentPage(),
             ];
         }
+
         return [
             'total' => $this->count(),
         ];

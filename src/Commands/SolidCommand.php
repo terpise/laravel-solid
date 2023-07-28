@@ -12,7 +12,8 @@ class SolidCommand extends Command
 
     public function handle(): int
     {
-        $this->comment('All done');
+        $text = config('solid.command');
+        $this->comment($text);
 
         return self::SUCCESS;
     }

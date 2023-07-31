@@ -1,0 +1,12 @@
+<?php
+
+namespace {{ namespace }};
+
+use Terpise\Solid\Contracts\RepositoryInterface;
+
+interface {{ class }} extends RepositoryInterface
+{
+    public function getPaginate($params);
+
+    public function filters($params);
+}

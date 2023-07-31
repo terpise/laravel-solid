@@ -1,0 +1,99 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Contracts\{{ alias }}Interface;
+use App\Http\Requests\IndexRequest;
+use App\Http\Requests\{{ alias }}StoreRequest;
+use App\Http\Requests\{{ alias }}UpdateRequest;
+use App\Http\Resources\{{ alias }}Collection;
+use App\Http\Resources\{{ alias }}Resource;
+use Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
+class {{ class }} extends Controller
+{
+    protected {{ alias }}Interface $repository;
+
+    public function __construct({{ alias }}Interface $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function index(IndexRequest $request): JsonResponse
+    {
+        $data = $this->repository->getPaginate($request->all());
+        return $this->responseData((new {{ alias }}Collection($data))->jsonSerialize());
+    }
+
+    public function store({{ alias }}StoreRequest $request): JsonResponse
+    {
+        DB::beginTransaction();
+        try {
+            $result = $this->repository->create($request->all());
+            if ($result) {
+                DB::commit();
+                return $this->responseData($result);
+            }
+            return $this->responseBadRequest();
+        } catch (Exception $exception) {
+            DB::rollBack();
+            Log::error($exception->getMessage());
+            return $this->responseInternalServerError();
+        }
+    }
+
+    public function show(int $id): JsonResponse
+    {
+        try {
+            return $this->responseData((new {{ alias }}Resource($this->repository->find($id)))->jsonSerialize());
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
+            return $this->responseInternalServerError();
+        }
+    }
+
+    public function update({{ alias }}UpdateRequest $request, int $id): JsonResponse
+    {
+        $item = $this->repository->find($id);
+        if (empty($item)) {
+            return $this->responseNotFound();
+        }
+        DB::beginTransaction();
+        try {
+            $result = $item->update($request->all());
+            if ($result) {
+                DB::commit();
+                return $this->responseData($result);
+            }
+            return $this->responseBadRequest();
+        } catch (Exception $exception) {
+            DB::rollBack();
+            Log::error($exception->getMessage());
+            return $this->responseInternalServerError();
+        }
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        $item = $this->repository->find($id);
+        if (empty($item)) {
+            return $this->responseNotFound();
+        }
+        DB::beginTransaction();
+        try {
+            $result = $item->delete();
+            if ($result) {
+                DB::commit();
+                return $this->responseData($result);
+            }
+            return $this->responseBadRequest();
+        } catch (Exception $exception) {
+            DB::rollBack();
+            Log::error($exception->getMessage());
+            return $this->responseInternalServerError();
+        }
+    }
+}

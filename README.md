@@ -7,12 +7,6 @@
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
-## Support us
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
-
 ## Installation
 
 You can install the package via composer:
@@ -21,17 +15,10 @@ You can install the package via composer:
 composer require terpise/laravel-solid
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-solid-migrations"
-php artisan migrate
-```
-
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-solid-config"
+php artisan vendor:publish --tag=solid-config
 ```
 
 This is the contents of the published config file:
@@ -41,18 +28,6 @@ return [
 ];
 ```
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-solid-views"
-```
-
-## Usage
-
-```php
-$solid = new Terpise\Solid();
-echo $solid->echoPhrase('Hello, Terpise!');
-```
 
 ## Testing
 

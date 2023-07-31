@@ -22,9 +22,9 @@ class SolidServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        $this->registerRoutes();
-//        $this->registerResources();
-//        $this->registerMigrations();
+        //        $this->registerRoutes();
+        //        $this->registerResources();
+        //        $this->registerMigrations();
         $this->registerPublishing();
         $this->registerCommands();
     }
@@ -77,15 +77,15 @@ class SolidServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         if ($this->app->runningInConsole()) {
-//            $this->publishes([
-//                __DIR__.'/../database/migrations' => database_path('migrations'),
-//            ], 'solid-migrations');
-//
-//            $this->publishes([
-//                __DIR__.'/../resources/views' => base_path('resources/views/vendor/solid'),
-//            ], 'solid-views');
+            //            $this->publishes([
+            //                __DIR__.'/../database/migrations' => database_path('migrations'),
+            //            ], 'solid-migrations');
+            //
+            //            $this->publishes([
+            //                __DIR__.'/../resources/views' => base_path('resources/views/vendor/solid'),
+            //            ], 'solid-views');
             $this->publishes([
-                __DIR__ . '/Commands/stubs' => base_path('stubs'),
+                __DIR__.'/Commands/stubs' => base_path('stubs'),
             ], 'solid-stubs');
 
             $this->publishes([

@@ -14,6 +14,7 @@ class SolidCommand extends Command
     {
         $text = config('solid.text');
         $this->comment($text);
+
         return self::SUCCESS;
     }
 }

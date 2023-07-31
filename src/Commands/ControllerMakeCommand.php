@@ -47,6 +47,7 @@ class ControllerMakeCommand extends GeneratorCommand
         $stub = parent::replaceClass($stub, $name);
 
         $command = $this->option('command') ?: 'app:'.Str::of($name)->classBasename()->kebab()->value();
+
         return str_replace(['dummy:command', '{{ command }}'], $command, $stub);
     }
 
@@ -130,6 +131,7 @@ class ControllerMakeCommand extends GeneratorCommand
     protected function buildReplacements()
     {
         $alias = $this->getAliasInput();
+
         return [
             '{{ alias }}' => class_basename($alias),
         ];

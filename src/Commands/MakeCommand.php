@@ -3,8 +3,6 @@
 namespace Terpise\Solid\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 class MakeCommand extends Command
 {
@@ -59,13 +57,14 @@ class MakeCommand extends Command
         if ($this->option('controller')) {
             $this->createController();
         }
+
         return 0;
     }
 
     public function createContract()
     {
         $this->call('solid:make-contract', [
-            'name' => $this->argument('name') . 'Interface',
+            'name' => $this->argument('name').'Interface',
         ]);
     }
 
@@ -79,38 +78,38 @@ class MakeCommand extends Command
     public function createRequest()
     {
         $this->call('solid:make-request', [
-            'name' => $this->argument('name') . 'StoreRequest',
+            'name' => $this->argument('name').'StoreRequest',
         ]);
         $this->call('solid:make-request', [
-            'name' => $this->argument('name') . 'UpdateRequest',
+            'name' => $this->argument('name').'UpdateRequest',
         ]);
     }
 
     public function createResource()
     {
         $this->call('solid:make-resource', [
-            'name' => $this->argument('name') . 'Resource',
+            'name' => $this->argument('name').'Resource',
         ]);
     }
 
     public function createCollection()
     {
         $this->call('solid:make-collection', [
-            'name' => $this->argument('name') . 'Collection',
+            'name' => $this->argument('name').'Collection',
         ]);
     }
 
     public function createRepository()
     {
         $this->call('solid:make-repository', [
-            'name' => $this->argument('name') . 'Repository',
+            'name' => $this->argument('name').'Repository',
         ]);
     }
 
     public function createController()
     {
         $this->call('solid:make-controller', [
-            'name' => $this->argument('name') . 'Controller',
+            'name' => $this->argument('name').'Controller',
         ]);
     }
 }

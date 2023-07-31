@@ -1,0 +1,10 @@
+<?php
+
+namespace {{ namespace }};
+
+use Terpise\Solid\Resources\Collection;
+
+class {{ class }} extends Collection
+{
+    public $collects = {{ alias }}Resource::class;
+}

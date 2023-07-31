@@ -6,15 +6,14 @@ use Illuminate\Console\Command;
 
 class SolidCommand extends Command
 {
-    public $signature = 'laravel-solid';
+    public $signature = 'terpise:solid';
 
-    public $description = 'My command';
+    public $description = 'Test command';
 
     public function handle(): int
     {
-        $text = config('solid.command');
+        $text = config('solid.text');
         $this->comment($text);
-
         return self::SUCCESS;
     }
 }
